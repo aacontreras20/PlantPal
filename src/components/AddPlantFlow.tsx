@@ -68,9 +68,9 @@ export function AddPlantFlow({ spots, onComplete, onAddSpot, onCancel }: AddPlan
 
   const filteredPlants = searchQuery
     ? PLANT_DATABASE.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     : PLANT_DATABASE;
 
   const handlePlantSelect = (plant: typeof PLANT_DATABASE[0]) => {
@@ -132,9 +132,9 @@ export function AddPlantFlow({ spots, onComplete, onAddSpot, onCancel }: AddPlan
   }
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-[#F5EFE7]">
       {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-neutral-200">
+      <div className="px-6 pt-6 pb-4 border-b border-neutral-200 bg-[#F5EFE7]">
         <button onClick={onCancel} className="flex items-center gap-2 text-neutral-600 mb-4">
           <ArrowLeft className="w-5 h-5" />
           <span className="text-sm">Cancel</span>

@@ -88,9 +88,9 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
   const filteredPlants = searchQuery
     ? PLANT_DATABASE.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     : PLANT_DATABASE;
 
   const handleHasPlants = (hasPlants: boolean) => {
@@ -167,7 +167,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
     <div className="h-full flex flex-col bg-background">
       {/* Splash Screen */}
       {step === 'splash' && (
-        <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-br from-[#6F7D61] via-[#7A8A70] to-[#869F7E] relative overflow-hidden">
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#6F7D61] via-[#7A8A70] to-[#869F7E] overflow-hidden z-50">
           {/* Animated background elements */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-10 left-10 text-6xl animate-float">🌿</div>
@@ -189,19 +189,19 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
       {/* Location Screen */}
       {step === 'location' && (
-        <div className="flex-1 flex flex-col px-6 pt-12 bg-gradient-to-br from-[#F5F2EA] to-[#E8E3D8]">
-          <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#A8BFA0] to-[#6F7D61] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <MapPin className="w-10 h-10 text-white" />
+        <div className="flex-1 flex flex-col px-6 pt-12 pb-safe bg-[#F5EFE7]">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#A8BFA0] to-[#6F7D61] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+              <MapPin className="w-8 h-8 text-white" />
             </div>
-            <h1 className="mb-3 text-[#2E3F34]">Where are you growing?</h1>
-            <p className="text-neutral-600">
-              This helps us understand your climate and give personalized care tips
+            <h1 className="mb-2 text-[#2E3F34]">Where are you growing?</h1>
+            <p className="text-neutral-600 text-sm">
+              This helps us understand your climate
             </p>
           </div>
 
-          <div className="flex-1 flex flex-col">
-            <div className="mb-6">
+          <div className="flex-1 flex flex-col overflow-y-auto pb-40">
+            <div className="mb-4">
               <label className="text-sm text-neutral-700 mb-2 block">City or Region</label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
@@ -214,81 +214,78 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
               </div>
             </div>
 
-            <div className="mb-8">
-              <label className="text-sm text-neutral-700 mb-3 block">Climate Type</label>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="mb-6">
+              <label className="text-sm text-neutral-700 mb-2 block">Climate Type</label>
+              <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setClimate('tropical')}
-                  className={`p-4 rounded-xl border-2 transition-all text-left ${
-                    climate === 'tropical'
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`p-3 rounded-xl border-2 transition-all text-left ${climate === 'tropical'
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
-                  <div className="text-2xl mb-1">🌴</div>
-                  <p className="text-sm">Tropical</p>
+                  <div className="text-xl mb-0.5">🌴</div>
+                  <p className="text-sm font-medium">Tropical</p>
                   <p className="text-xs text-neutral-500">Hot & humid</p>
                 </button>
 
                 <button
                   onClick={() => setClimate('temperate')}
-                  className={`p-4 rounded-xl border-2 transition-all text-left ${
-                    climate === 'temperate'
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`p-3 rounded-xl border-2 transition-all text-left ${climate === 'temperate'
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
-                  <div className="text-2xl mb-1">🍂</div>
-                  <p className="text-sm">Temperate</p>
+                  <div className="text-xl mb-0.5">🍂</div>
+                  <p className="text-sm font-medium">Temperate</p>
                   <p className="text-xs text-neutral-500">4 seasons</p>
                 </button>
 
                 <button
                   onClick={() => setClimate('arid')}
-                  className={`p-4 rounded-xl border-2 transition-all text-left ${
-                    climate === 'arid'
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`p-3 rounded-xl border-2 transition-all text-left ${climate === 'arid'
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
-                  <div className="text-2xl mb-1">🌵</div>
-                  <p className="text-sm">Arid/Dry</p>
+                  <div className="text-xl mb-0.5">🌵</div>
+                  <p className="text-sm font-medium">Arid/Dry</p>
                   <p className="text-xs text-neutral-500">Low humidity</p>
                 </button>
 
                 <button
                   onClick={() => setClimate('cold')}
-                  className={`p-4 rounded-xl border-2 transition-all text-left ${
-                    climate === 'cold'
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`p-3 rounded-xl border-2 transition-all text-left ${climate === 'cold'
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
-                  <div className="text-2xl mb-1">❄️</div>
-                  <p className="text-sm">Cold</p>
+                  <div className="text-xl mb-0.5">❄️</div>
+                  <p className="text-sm font-medium">Cold</p>
                   <p className="text-xs text-neutral-500">Long winters</p>
                 </button>
               </div>
             </div>
+          </div>
 
-            <div className="mt-auto space-y-3 pb-6">
-              <Button
-                onClick={() => setStep('has-plants')}
-                disabled={!climate}
-                className="w-full shadow-lg"
-                size="lg"
-              >
-                Continue
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button
-                onClick={() => setStep('has-plants')}
-                variant="ghost"
-                className="w-full"
-              >
-                Skip for now
-              </Button>
-            </div>
+          {/* Fixed bottom buttons */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 px-6 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-50">
+            <Button
+              onClick={() => setStep('has-plants')}
+              disabled={!climate}
+              className="w-full shadow-lg mb-2"
+              size="lg"
+            >
+              Continue
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+            <Button
+              onClick={() => setStep('has-plants')}
+              variant="ghost"
+              className="w-full"
+            >
+              Skip for now
+            </Button>
           </div>
         </div>
       )}
@@ -300,56 +297,59 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         />
       )}
 
-      {/* Welcome */}
+      {/* Welcome Screen */}
       {step === 'welcome' && (
-        <div className="flex-1 flex flex-col items-center justify-center px-8 text-center bg-gradient-to-br from-[#F5F2EA] to-[#E8E3D8]">
-          <div className="w-24 h-24 bg-gradient-to-br from-[#A8BFA0] to-[#6F7D61] rounded-full flex items-center justify-center mb-6 shadow-xl">
-            <span className="text-5xl">🌱</span>
+        <div className="h-full w-full flex flex-col items-center justify-center bg-[#F5EFE7] px-6">
+          <div className="text-center max-w-md">
+            <div className="w-20 h-20 bg-gradient-to-br from-[#A8BFA0] to-[#6F7D61] rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl">
+              <span className="text-5xl">🌱</span>
+            </div>
+            <h1 className="mb-3 text-3xl">Welcome to PlantPal</h1>
+            <p className="text-neutral-600 mb-8">
+              Your friendly companion for keeping your plants happy and healthy
+            </p>
+            <Button onClick={() => setStep('location')} size="lg" className="w-full">
+              Get Started
+            </Button>
           </div>
-          <h1 className="mb-3 text-[#2E3F34]">Welcome to PlantPal</h1>
-          <p className="text-neutral-600 mb-8">
-            Your friendly guide to keeping plants happy and healthy
-          </p>
-          <Button onClick={() => setStep('location')} className="w-full shadow-lg" size="lg">
-            Let's Get Started! 🌿
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
         </div>
       )}
 
-      {/* Has Plants */}
+      {/* Has Plants Screen */}
       {step === 'has-plants' && (
-        <div className="flex-1 flex flex-col px-6 pt-12">
-          <h1 className="mb-3">Do you already have plants?</h1>
-          <p className="text-neutral-600 mb-8">
-            We'll customize your experience based on your needs
-          </p>
+        <div className="h-full flex flex-col bg-[#F5EFE7]">
+          <div className="flex-1 overflow-y-auto px-6 pt-12 pb-40">
+            <h1 className="mb-2 text-xl">Do you already have plants?</h1>
+            <p className="text-neutral-600 mb-6 text-sm">
+              We'll customize your experience based on your needs
+            </p>
 
-          <div className="space-y-3">
-            <button
-              onClick={() => handleHasPlants(true)}
-              className="w-full p-6 bg-white border-2 border-neutral-200 rounded-2xl hover:border-[#6F7D61] hover:bg-[#A8BFA0]/10 transition-all text-left"
-            >
-              <h3 className="mb-1">Yes, I have plants</h3>
-              <p className="text-sm text-neutral-600">Add them to start tracking care</p>
-            </button>
+            <div className="space-y-3">
+              <button
+                onClick={() => handleHasPlants(true)}
+                className="w-full p-4 bg-white border-2 border-neutral-200 rounded-2xl hover:border-[#6F7D61] hover:bg-[#A8BFA0]/10 transition-all text-left"
+              >
+                <h3 className="mb-0.5 text-base font-medium">Yes, I have plants</h3>
+                <p className="text-sm text-neutral-600">Add them to start tracking care</p>
+              </button>
 
-            <button
-              onClick={() => handleHasPlants(false)}
-              className="w-full p-6 bg-white border-2 border-neutral-200 rounded-2xl hover:border-[#6F7D61] hover:bg-[#A8BFA0]/10 transition-all text-left"
-            >
-              <h3 className="mb-1">No, help me choose one</h3>
-              <p className="text-sm text-neutral-600">
-                Get recommendations based on your space
-              </p>
-            </button>
+              <button
+                onClick={() => handleHasPlants(false)}
+                className="w-full p-4 bg-white border-2 border-neutral-200 rounded-2xl hover:border-[#6F7D61] hover:bg-[#A8BFA0]/10 transition-all text-left"
+              >
+                <h3 className="mb-0.5 text-base font-medium">No, help me choose one</h3>
+                <p className="text-sm text-neutral-600">
+                  Get recommendations based on your space
+                </p>
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       {/* Search/Add Plant */}
       {step === 'search-plant' && (
-        <div className="flex-1 flex flex-col px-6 pt-12">
+        <div className="flex-1 flex flex-col px-6 pt-12 bg-[#F5EFE7]">
           <h1 className="mb-6">Add your plant</h1>
 
           <div className="space-y-3 mb-6">
@@ -397,7 +397,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
       {/* Select Plant (after creating spot for new users) */}
       {step === 'select-plant' && !selectedPlant && (
-        <div className="flex-1 flex flex-col px-6 pt-12">
+        <div className="flex-1 flex flex-col px-6 pt-12 bg-[#F5EFE7]">
           <h1 className="mb-3">Recommended for your spot</h1>
           <p className="text-neutral-600 mb-6">
             These plants will thrive in {createdSpot?.name}
@@ -430,7 +430,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
       {/* Plant Summary */}
       {step === 'plant-summary' && selectedPlant && createdSpot && (
-        <div className="flex-1 flex flex-col px-6 pt-12">
+        <div className="flex-1 flex flex-col px-6 pt-12 bg-[#F5EFE7]">
           <h1 className="mb-6">Your plant is ready!</h1>
 
           <div className="bg-neutral-50 rounded-2xl p-6 mb-6">

@@ -34,14 +34,14 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
   // Generate suggested name based on room type and light characteristics
   const generateSuggestedName = () => {
     const roomName = spotData.roomType === 'living-room' ? 'Living room' :
-                     spotData.roomType === 'kitchen' ? 'Kitchen' :
-                     spotData.roomType === 'bathroom' ? 'Bathroom' :
-                     spotData.roomType === 'bedroom' ? 'Bedroom' :
-                     spotData.roomType === 'office' ? 'Office' :
-                     spotData.roomType === 'dining-room' ? 'Dining room' :
-                     spotData.roomType === 'hallway' ? 'Hallway' :
-                     'My spot';
-    
+      spotData.roomType === 'kitchen' ? 'Kitchen' :
+        spotData.roomType === 'bathroom' ? 'Bathroom' :
+          spotData.roomType === 'bedroom' ? 'Bedroom' :
+            spotData.roomType === 'office' ? 'Office' :
+              spotData.roomType === 'dining-room' ? 'Dining room' :
+                spotData.roomType === 'hallway' ? 'Hallway' :
+                  'My spot';
+
     // Add descriptive suffix based on light source and location
     if (spotData.lightSourceType === 'window' && spotData.distanceFromWindow === 'windowsill') {
       return `${roomName} windowsill`;
@@ -105,7 +105,7 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
       distanceFromWindow: spotData.distanceFromWindow || undefined,
       lightLevel,
     };
-    
+
     // Small delay to show feedback, then complete
     setTimeout(() => {
       onComplete(newSpot);
@@ -123,9 +123,9 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-[#F5EFE7]">
       {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-[#A8BFA0]/30 bg-white">
+      <div className="px-6 pt-6 pb-4 border-b border-[#A8BFA0]/30 bg-[#F5EFE7]">
         <button onClick={handleBack} className="flex items-center gap-2 text-[#6F7D61] mb-4 hover:text-[#2E3F34] transition-colors">
           <ArrowLeft className="w-5 h-5" />
           <span className="text-sm">Back</span>
@@ -141,7 +141,7 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 pt-8">
+      <div className="flex-1 overflow-y-auto px-6 pt-8 pb-40">
         {/* Room Type */}
         {step === 'room-type' && (
           <div>
@@ -152,11 +152,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
             <div className="space-y-3">
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'living-room' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'living-room'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'living-room'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Home className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Living Room</h3>
@@ -165,11 +164,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'kitchen' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'kitchen'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'kitchen'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <UtensilsCrossed className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Kitchen</h3>
@@ -178,11 +176,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'bathroom' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'bathroom'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'bathroom'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Bath className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Bathroom</h3>
@@ -191,11 +188,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'bedroom' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'bedroom'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'bedroom'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Bed className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Bedroom</h3>
@@ -204,11 +200,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'office' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'office'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'office'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Briefcase className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Office</h3>
@@ -217,11 +212,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'dining-room' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'dining-room'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'dining-room'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <DiningIcon className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Dining Room</h3>
@@ -230,11 +224,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'hallway' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'hallway'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'hallway'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Home className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Hallway</h3>
@@ -243,11 +236,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, roomType: 'other' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.roomType === 'other'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.roomType === 'other'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <DoorOpen className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Other</h3>
@@ -267,11 +259,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
             <div className="space-y-3">
               <button
                 onClick={() => setSpotData({ ...spotData, lightSourceType: 'window' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.lightSourceType === 'window'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.lightSourceType === 'window'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Sun className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Window</h3>
@@ -280,11 +271,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, lightSourceType: 'lamp' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.lightSourceType === 'lamp'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.lightSourceType === 'lamp'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <Lamp className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">Lamp / Overhead Light</h3>
@@ -293,11 +283,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
 
               <button
                 onClick={() => setSpotData({ ...spotData, lightSourceType: 'no-window' })}
-                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                  spotData.lightSourceType === 'no-window'
-                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                }`}
+                className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.lightSourceType === 'no-window'
+                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                  }`}
               >
                 <DoorClosed className="w-6 h-6 mb-2 text-[#6F7D61]" />
                 <h3 className="mb-1">No window (indoor light only)</h3>
@@ -319,11 +308,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
                 <button
                   key={dir}
                   onClick={() => setSpotData({ ...spotData, direction: dir.toLowerCase() as any })}
-                  className={`p-5 border-2 rounded-2xl transition-all ${
-                    spotData.direction === dir.toLowerCase()
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`p-5 border-2 rounded-2xl transition-all ${spotData.direction === dir.toLowerCase()
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
                   <h3>{dir}</h3>
                 </button>
@@ -331,11 +319,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
             </div>
             <button
               onClick={() => setSpotData({ ...spotData, direction: 'unsure' })}
-              className={`w-full mt-3 p-4 border-2 rounded-2xl transition-all ${
-                spotData.direction === 'unsure'
-                  ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                  : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-              }`}
+              className={`w-full mt-3 p-4 border-2 rounded-2xl transition-all ${spotData.direction === 'unsure'
+                ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                }`}
             >
               <p className="text-sm">I'm not sure</p>
             </button>
@@ -358,11 +345,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
                 <button
                   key={option.value}
                   onClick={() => setSpotData({ ...spotData, directSunExposure: option.value as any })}
-                  className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                    spotData.directSunExposure === option.value
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.directSunExposure === option.value
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
                   <h3 className="mb-1">{option.label}</h3>
                   <p className="text-sm text-neutral-600">{option.desc}</p>
@@ -389,11 +375,10 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
                 <button
                   key={option.value}
                   onClick={() => setSpotData({ ...spotData, distanceFromWindow: option.value as any })}
-                  className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${
-                    spotData.distanceFromWindow === option.value
-                      ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
-                      : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
-                  }`}
+                  className={`w-full p-5 border-2 rounded-2xl transition-all text-left ${spotData.distanceFromWindow === option.value
+                    ? 'border-[#6F7D61] bg-[#A8BFA0]/10'
+                    : 'border-neutral-200 bg-white hover:border-[#A8BFA0]'
+                    }`}
                 >
                   <h3 className="mb-1">{option.label}</h3>
                   <p className="text-sm text-neutral-600">{option.desc}</p>
@@ -444,13 +429,13 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
               <p className="text-neutral-600 mb-6">
                 Here's what we know about {spotData.name}
               </p>
-              
+
               {/* Spot Card with Gradient - matching environments page */}
-              <div 
+              <div
                 className="rounded-3xl overflow-hidden shadow-lg relative mb-6 border-2 border-white"
               >
                 {/* Gradient Header */}
-                <div 
+                <div
                   className="p-5 pb-4 relative"
                   style={{ background: environmentStyle.gradient }}
                 >
@@ -521,13 +506,13 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
         })()}
       </div>
 
-      {/* Footer */}
-      <div className="px-6 py-6 border-t border-neutral-200">
+      {/* Footer - Fixed to bottom */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#F5EFE7] border-t border-neutral-200 px-6 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] z-[60]">
         {step === 'summary' ? (
-          <Button 
-            onClick={handleFinish} 
+          <Button
+            onClick={handleFinish}
             disabled={isSubmitting}
-            className="w-full" 
+            className="w-full"
             size="lg"
           >
             {isSubmitting ? 'Saving...' : 'Save Spot'}
@@ -559,14 +544,14 @@ function calculateLightLevel(spotData: any): 'bright-direct' | 'bright-indirect'
   }
 
   // Window-based logic
-  if (spotData.directSunExposure === 'lots' && 
-      (spotData.distanceFromWindow === 'windowsill' || spotData.distanceFromWindow === 'close')) {
+  if (spotData.directSunExposure === 'lots' &&
+    (spotData.distanceFromWindow === 'windowsill' || spotData.distanceFromWindow === 'close')) {
     return 'bright-direct';
   }
 
   if ((spotData.direction === 'south' || spotData.direction === 'west') &&
-      spotData.directSunExposure !== 'almost-none' &&
-      spotData.distanceFromWindow !== 'far') {
+    spotData.directSunExposure !== 'almost-none' &&
+    spotData.distanceFromWindow !== 'far') {
     return 'bright-indirect';
   }
 

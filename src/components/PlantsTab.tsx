@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, TrendingUp, Droplets, CheckCircle2, Circle, Calendar, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { AddPlantFlow } from './AddPlantFlow';
@@ -16,6 +16,7 @@ type PlantsTabProps = {
   onToggleTask: (taskId: string) => void;
   onRegenerateTasks?: (plantId: string) => void;
   onNavigateToAIExpert?: (message: string) => void;
+  onFlowStateChange?: (isInFlow: boolean) => void;
 };
 
 type View = 'list' | 'detail' | 'add-plant';
@@ -30,6 +31,7 @@ export function PlantsTab({
   onToggleTask,
   onRegenerateTasks,
   onNavigateToAIExpert,
+  onFlowStateChange,
 }: PlantsTabProps) {
   const [currentView, setCurrentView] = useState<View>('list');
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
@@ -37,6 +39,13 @@ export function PlantsTab({
   const [celebrationMessage, setCelebrationMessage] = useState('');
 
   const selectedPlant = plants.find(p => p.id === selectedPlantId);
+
+  // Notify parent when entering/exiting flows
+  useEffect(() => {
+    if (onFlowStateChange) {
+      onFlowStateChange(currentView === 'add-plant');
+    }
+  }, [currentView, onFlowStateChange]);
 
   // Celebration messages
   const celebrations = [
@@ -62,7 +71,7 @@ export function PlantsTab({
   // Calculate stats
   const healthyPlants = plants.filter(p => p.status === 'all-good').length;
   const needsAttention = plants.filter(p => p.status !== 'all-good').length;
-  const completionRate = tasks.length > 0 
+  const completionRate = tasks.length > 0
     ? Math.round((tasks.filter(t => t.completed).length / tasks.length) * 100)
     : 0;
 
@@ -113,7 +122,7 @@ export function PlantsTab({
 
   if (currentView === 'detail' && selectedPlant) {
     const spot = spots.find(s => s.id === selectedPlant.spotId);
-    
+
     return (
       <PlantDetailScreen
         plant={selectedPlant}
@@ -169,13 +178,13 @@ export function PlantsTab({
             <div>
               <h1 className="text-[#2E3F34] leading-tight">PlantPal</h1>
               <p className="text-xs text-[#6F7D61]">
-                {plants.length === 0 
-                  ? 'Start your plant journey' 
+                {plants.length === 0
+                  ? 'Start your plant journey'
                   : `${plants.length} ${plants.length === 1 ? 'plant' : 'plants'} growing strong`}
               </p>
             </div>
           </div>
-          
+
           {/* Weather Widget */}
           <div className="flex items-center gap-1 px-2 py-1 bg-white/60 backdrop-blur-sm rounded-full border border-[#6F7D61]/20 shadow-sm">
             <span className="text-xs">🌤️</span>

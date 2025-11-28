@@ -61,6 +61,7 @@ export default function App() {
   const [spots, setSpots] = useState<Spot[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [aiExpertPrefilledMessage, setAiExpertPrefilledMessage] = useState<string>('');
+  const [isInFlow, setIsInFlow] = useState(false); // Track if user is in a survey flow
 
   const handleCompleteOnboarding = (
     newPlants: Plant[],
@@ -98,10 +99,10 @@ export default function App() {
 
   const handleToggleTask = (taskId: string) => {
     const task = tasks.find(t => t.id === taskId);
-    
+
     // Toggle the task
     setTasks(tasks.map(t => t.id === taskId ? { ...t, completed: !t.completed } : t));
-    
+
     // If completing a task, automatically generate the next occurrence
     if (task && !task.completed) {
       const plant = plants.find(p => p.id === task.plantId);
@@ -128,7 +129,7 @@ export default function App() {
 
     // Remove existing non-completed tasks for this plant
     const existingTasks = tasks.filter(t => t.plantId !== plantId || t.completed);
-    
+
     // Generate new tasks based on task configuration
     const newTasks: Task[] = [];
     const now = Date.now();
@@ -174,7 +175,7 @@ export default function App() {
         ) : (
           <>
             {/* Tab content - adjust height to account for bottom tab bar */}
-            <div className="h-full pb-[calc(83px+env(safe-area-inset-bottom))] overflow-y-auto">
+            <div className={`h-full ${!isInFlow ? 'pb-[calc(70px+env(safe-area-inset-bottom))]' : ''} overflow-y-auto`}>
               {currentTab === 'plants' && (
                 <PlantsTab
                   plants={plants}
@@ -186,6 +187,7 @@ export default function App() {
                   onToggleTask={handleToggleTask}
                   onRegenerateTasks={handleRegenerateTasks}
                   onNavigateToAIExpert={handleNavigateToAIExpert}
+                  onFlowStateChange={setIsInFlow}
                 />
               )}
               {currentTab === 'spots' && (
@@ -199,11 +201,12 @@ export default function App() {
                   onToggleTask={handleToggleTask}
                   onAddPlant={handleAddPlant}
                   onRegenerateTasks={handleRegenerateTasks}
+                  onFlowStateChange={setIsInFlow}
                 />
               )}
               {currentTab === 'ai-expert' && (
-                <AIExpertTab 
-                  plants={plants} 
+                <AIExpertTab
+                  plants={plants}
                   prefilledMessage={aiExpertPrefilledMessage}
                   setPrefilledMessage={setAiExpertPrefilledMessage}
                 />
@@ -213,47 +216,45 @@ export default function App() {
               )}
             </div>
 
-            {/* Bottom tab bar */}
-            <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-neutral-200 pb-[env(safe-area-inset-bottom)]">
-              <div className="flex items-center justify-around h-[83px] px-6">
-                <button
-                  onClick={() => setCurrentTab('plants')}
-                  className={`flex flex-col items-center gap-1 transition-colors ${
-                    currentTab === 'plants' ? 'text-[#6F7D61]' : 'text-neutral-400'
-                  }`}
-                >
-                  <Home className="w-6 h-6" />
-                  <span className="text-xs">Plants</span>
-                </button>
-                <button
-                  onClick={() => setCurrentTab('spots')}
-                  className={`flex flex-col items-center gap-1 transition-colors ${
-                    currentTab === 'spots' ? 'text-[#6F7D61]' : 'text-neutral-400'
-                  }`}
-                >
-                  <MapPin className="w-6 h-6" />
-                  <span className="text-xs">Environments</span>
-                </button>
-                <button
-                  onClick={() => setCurrentTab('ai-expert')}
-                  className={`flex flex-col items-center gap-1 transition-colors ${
-                    currentTab === 'ai-expert' ? 'text-[#6F7D61]' : 'text-neutral-400'
-                  }`}
-                >
-                  <MessageSquare className="w-6 h-6" />
-                  <span className="text-xs">AI Expert</span>
-                </button>
-                <button
-                  onClick={() => setCurrentTab('profile')}
-                  className={`flex flex-col items-center gap-1 transition-colors ${
-                    currentTab === 'profile' ? 'text-[#6F7D61]' : 'text-neutral-400'
-                  }`}
-                >
-                  <User className="w-6 h-6" />
-                  <span className="text-xs">Profile</span>
-                </button>
+            {/* Bottom tab bar - only show when not in a flow */}
+            {!isInFlow && (
+              <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 pb-[env(safe-area-inset-bottom)] z-50">
+                <div className="flex items-center justify-around h-[70px] px-4 py-2">
+                  <button
+                    onClick={() => setCurrentTab('plants')}
+                    className={`flex flex-col items-center gap-1 transition-colors ${currentTab === 'plants' ? 'text-[#6F7D61]' : 'text-neutral-400'
+                      }`}
+                  >
+                    <Home className="w-6 h-6" />
+                    <span className="text-xs">Plants</span>
+                  </button>
+                  <button
+                    onClick={() => setCurrentTab('spots')}
+                    className={`flex flex-col items-center gap-1 transition-colors ${currentTab === 'spots' ? 'text-[#6F7D61]' : 'text-neutral-400'
+                      }`}
+                  >
+                    <MapPin className="w-6 h-6" />
+                    <span className="text-xs">Environments</span>
+                  </button>
+                  <button
+                    onClick={() => setCurrentTab('ai-expert')}
+                    className={`flex flex-col items-center gap-1 transition-colors ${currentTab === 'ai-expert' ? 'text-[#6F7D61]' : 'text-neutral-400'
+                      }`}
+                  >
+                    <MessageSquare className="w-6 h-6" />
+                    <span className="text-xs">AI Expert</span>
+                  </button>
+                  <button
+                    onClick={() => setCurrentTab('profile')}
+                    className={`flex flex-col items-center gap-1 transition-colors ${currentTab === 'profile' ? 'text-[#6F7D61]' : 'text-neutral-400'
+                      }`}
+                  >
+                    <User className="w-6 h-6" />
+                    <span className="text-xs">Profile</span>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
       </div>

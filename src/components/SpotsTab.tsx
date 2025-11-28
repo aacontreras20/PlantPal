@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Sun, Moon, Lamp, ArrowLeft, ArrowRight, Edit2, Home, UtensilsCrossed, Bath, Bed, Briefcase, DoorOpen } from 'lucide-react';
 import { Button } from './ui/button';
 import { CreateSpotFlow } from './CreateSpotFlow';
@@ -17,17 +17,25 @@ type SpotsTabProps = {
   onToggleTask: (taskId: string) => void;
   onAddPlant: (plant: Plant) => void;
   onRegenerateTasks?: (plantId: string) => void;
+  onFlowStateChange?: (isInFlow: boolean) => void;
 };
 
 type View = 'list' | 'detail' | 'plant-detail' | 'create' | 'add-plant-to-spot';
 
-export function SpotsTab({ spots, plants, tasks, onAddSpot, onUpdateSpot, onUpdatePlant, onToggleTask, onAddPlant, onRegenerateTasks }: SpotsTabProps) {
+export function SpotsTab({ spots, plants, tasks, onAddSpot, onUpdateSpot, onUpdatePlant, onToggleTask, onAddPlant, onRegenerateTasks, onFlowStateChange }: SpotsTabProps) {
   const [currentView, setCurrentView] = useState<View>('list');
   const [selectedSpotId, setSelectedSpotId] = useState<string | null>(null);
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
 
   const selectedSpot = spots.find(s => s.id === selectedSpotId);
   const selectedPlant = plants.find(p => p.id === selectedPlantId);
+
+  // Notify parent when entering/exiting flows
+  useEffect(() => {
+    if (onFlowStateChange) {
+      onFlowStateChange(currentView === 'create' || currentView === 'add-plant-to-spot');
+    }
+  }, [currentView, onFlowStateChange]);
 
   if (currentView === 'create') {
     return (
@@ -44,7 +52,7 @@ export function SpotsTab({ spots, plants, tasks, onAddSpot, onUpdateSpot, onUpda
   if (currentView === 'plant-detail' && selectedPlant) {
     const spot = spots.find(s => s.id === selectedPlant.spotId);
     const plantTasks = tasks.filter(t => t.plantId === selectedPlant.id);
-    
+
     return (
       <PlantDetailScreen
         plant={selectedPlant}
@@ -101,8 +109,8 @@ export function SpotsTab({ spots, plants, tasks, onAddSpot, onUpdateSpot, onUpda
       <div className="px-6 pt-6 pb-4 relative z-10">
         <h1 className="mb-1">🏡 Environments</h1>
         <p className="text-neutral-600">
-          {spots.length === 0 
-            ? 'Create your first environment' 
+          {spots.length === 0
+            ? 'Create your first environment'
             : `${spots.length} ${spots.length === 1 ? 'environment' : 'environments'} set up`}
         </p>
       </div>
@@ -129,7 +137,7 @@ export function SpotsTab({ spots, plants, tasks, onAddSpot, onUpdateSpot, onUpda
               const spotPlantCount = plants.filter(p => p.spotId === spot.id).length;
               const environmentStyle = getEnvironmentStyle(spot.lightLevel);
               const roomIcon = getRoomIcon(spot.roomType);
-              
+
               return (
                 <button
                   key={spot.id}
@@ -140,7 +148,7 @@ export function SpotsTab({ spots, plants, tasks, onAddSpot, onUpdateSpot, onUpda
                   className="w-full rounded-3xl overflow-hidden shadow-md hover:shadow-lg transition-all text-left border-2 border-white relative"
                 >
                   {/* Gradient Header */}
-                  <div 
+                  <div
                     className="p-5 pb-4 relative"
                     style={{ background: environmentStyle.gradient }}
                   >
