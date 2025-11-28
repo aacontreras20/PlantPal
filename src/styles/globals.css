@@ -8,20 +8,25 @@
   --sand: #F5F2EA;
   --clay: #C9A48F;
   --deep-forest: #2E3F34;
-  
-  --background: #F5F2EA; /* Sand */
-  --foreground: #2E3F34; /* Deep forest */
+
+  --background: #F5F2EA;
+  /* Sand */
+  --foreground: #2E3F34;
+  /* Deep forest */
   --card: #ffffff;
   --card-foreground: #2E3F34;
   --popover: #ffffff;
   --popover-foreground: #2E3F34;
-  --primary: #6F7D61; /* Olive */
+  --primary: #6F7D61;
+  /* Olive */
   --primary-foreground: #F5F2EA;
-  --secondary: #A8BFA0; /* Sage */
+  --secondary: #A8BFA0;
+  /* Sage */
   --secondary-foreground: #2E3F34;
   --muted: #e5e5e0;
   --muted-foreground: #6F7D61;
-  --accent: #C9A48F; /* Clay */
+  --accent: #C9A48F;
+  /* Clay */
   --accent-foreground: #2E3F34;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
@@ -200,9 +205,11 @@ html {
     transform: translate(-50%, 100px);
     opacity: 0;
   }
+
   50% {
     transform: translate(-50%, -10px);
   }
+
   100% {
     transform: translate(-50%, 0);
     opacity: 1;
@@ -214,18 +221,24 @@ html {
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
 }
 
 @keyframes float-delayed {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-15px);
   }
@@ -245,9 +258,11 @@ html {
     transform: scale(0);
     opacity: 0;
   }
+
   50% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -263,6 +278,7 @@ html {
     opacity: 0;
     transform: translateY(10px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -273,4 +289,29 @@ html {
   animation: fade-in 0.8s ease-out;
   opacity: 0;
   animation-fill-mode: forwards;
+}
+
+/* Input field fixes */
+input,
+textarea {
+  caret-color: #6F7D61;
+  /* Dark green cursor */
+  scroll-margin-bottom: 0;
+  /* Prevent scroll shifting on focus */
+}
+
+input:focus,
+textarea:focus {
+  scroll-margin-bottom: 0;
+  transform: none;
+  /* Prevent any transform on focus */
+}
+
+/* Ensure input borders are fully visible */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+textarea {
+  outline-offset: 2px;
+  /* Space between input and focus ring */
 }

@@ -141,7 +141,7 @@ export function CreateSpotFlow({ onComplete, onBack }: CreateSpotFlowProps) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 pt-8 pb-40">
+      <div className="flex-1 overflow-y-auto px-6 pt-8 pb-48">
         {/* Room Type */}
         {step === 'room-type' && (
           <div>

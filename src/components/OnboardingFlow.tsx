@@ -200,7 +200,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
             </p>
           </div>
 
-          <div className="flex-1 flex flex-col overflow-y-auto pb-40">
+          <div className="flex-1 flex flex-col overflow-y-auto pb-48">
             <div className="mb-4">
               <label className="text-sm text-neutral-700 mb-2 block">City or Region</label>
               <div className="relative">
@@ -299,7 +299,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
       {/* Welcome Screen */}
       {step === 'welcome' && (
-        <div className="h-full w-full flex flex-col items-center justify-center bg-[#F5EFE7] px-6">
+        <div className="h-full w-full flex flex-col items-center justify-center bg-[#F5EFE7] px-6 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
           <div className="text-center max-w-md">
             <div className="w-20 h-20 bg-gradient-to-br from-[#A8BFA0] to-[#6F7D61] rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl">
               <span className="text-5xl">🌱</span>
@@ -318,7 +318,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
       {/* Has Plants Screen */}
       {step === 'has-plants' && (
         <div className="h-full flex flex-col bg-[#F5EFE7]">
-          <div className="flex-1 overflow-y-auto px-6 pt-12 pb-40">
+          <div className="flex-1 overflow-y-auto px-6 pt-12 pb-48">
             <h1 className="mb-2 text-xl">Do you already have plants?</h1>
             <p className="text-neutral-600 mb-6 text-sm">
               We'll customize your experience based on your needs
